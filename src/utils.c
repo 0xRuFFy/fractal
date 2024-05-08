@@ -5,8 +5,7 @@
 #include "utils.h"
 
 String* read_file(const char* file_path) {
-    FILE* file;
-    fopen_s(&file, file_path, "r");
+    FILE* file = fopen(file_path, "r");
     if (file == NULL) {
         fprintf(stderr, "Could not open file: %s\n", file_path);
         return NULL;
