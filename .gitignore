@@ -53,5 +53,11 @@ dkms.conf
 
 # build
 build/
+out/
 .cache/
 compile_commands.json
+
+# IDE
+.vscode/
+.vs/
+.idea/
