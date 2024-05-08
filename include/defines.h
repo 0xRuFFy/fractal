@@ -3,6 +3,7 @@
 
 // Includes
 #include <stdbool.h>
+#include <stdlib.h>
 
 // ------ Types ------
 // unsigned integer types
@@ -22,13 +23,15 @@ typedef signed long i64;
 typedef float f32;
 typedef double f64;
 
+// String
+typedef struct {
+    const char* start;
+    usize length;
+} String;
+
 // ------ Macros ------
 // Array length
 #define ARRAY_LENGTH(array) (sizeof(array) / sizeof(array[0]))
-
-// Min and max
-#define min(a, b) ((a) < (b) ? (a) : (b))
-#define max(a, b) ((b) < (a) ? (a) : (b))
 
 // Swap
 #define swap(a, b)          \
