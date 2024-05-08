@@ -3,6 +3,7 @@
 
 #include "lexer/lexer.h"
 #include "utils.h"
+#include "lexer/utils.h"
 
 Lexer* new_lexer(const char* file_path) {
     Lexer* lexer = malloc(sizeof(Lexer));
@@ -37,12 +38,17 @@ void free_lexer(Lexer* lexer) {
 }
 
 Token next_token(Lexer* lexer) {
-    // TODO: Trim whitespace here
+    __trim_whitespace(lexer);
+
     Token token = {
         .type = TT_EOF,
         .value = lexer->source + lexer->cursor,
         .value_len = 0,
     };
+
+    if (!__cursor_in_bounds(lexer)) {
+        return token;
+    }
 
     return token;
 }
