@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS // Disables the warning about fopen being unsafe (damn you Microsoft)
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
