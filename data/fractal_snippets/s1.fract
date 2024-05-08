@@ -1,0 +1,9 @@
+
+/**
+ * This is the main entry point of a fractal programm.
+ * with out doing anything the programm exits with a code of 0.
+**/
+fn main() {
+	// the main code goes here
+}
+
