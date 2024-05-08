@@ -25,5 +25,18 @@ file(GLOB_RECURSE SOURCE_FILES "src/*.c")
 #	)
 #endif()
 
+find_program(CLANG_TIDY "clang-tidy")
+if(CLANG_TIDY)
+	add_custom_target(
+		tidy
+		COMMAND ${CLANG_TIDY}
+		-config=''
+		--
+		-std=c11
+		${SOURCE_FILES}
+		${HEADER_FILES}
+	)
+endif()
+
 # Create executable
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
