@@ -2,7 +2,6 @@
 #define TOKEN_H_
 
 #include "defines.h"
-#include "token.h"
 
 /**
  * @brief The different types of tokens that can be found in the source code.
