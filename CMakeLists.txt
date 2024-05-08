@@ -13,17 +13,17 @@ file(GLOB_RECURSE HEADER_FILES "include/*.h" "src/*.h")
 include_directories(include)
 
 # Add clang-format target
-find_program(CLANG_FORMAT "clang-format")
-if(CLANG_FORMAT)
-	add_custom_target(
-		fmt
-		COMMAND ${CLANG_FORMAT}
-		-i
-		-style=file
-		${SOURCE_FILES}
-		${HEADER_FILES}
-	)
-endif()
+#find_program(CLANG_FORMAT "clang-format")
+#if(CLANG_FORMAT)
+#	add_custom_target(
+#		fmt
+#		COMMAND ${CLANG_FORMAT}
+#		-i
+#		-style=file
+#		${SOURCE_FILES}
+#		${HEADER_FILES}
+#	)
+#endif()
 
 # Create executable
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
