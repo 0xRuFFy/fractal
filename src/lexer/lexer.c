@@ -27,7 +27,7 @@ Lexer* new_lexer(const char* file_path) {
     // TODO: REMOVE THIS PRINTF
     printf("File: %s\n", lexer->path);
     printf("File size: %luB\n", lexer->source_length);
-    printf("Content: \n%s\n", lexer->source);
+    printf("Content: \n%s", lexer->source);
 
     return lexer;
 }
