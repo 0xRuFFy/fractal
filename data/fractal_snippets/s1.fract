@@ -4,6 +4,6 @@
  * with out doing anything the program exits with a code of 0.
 **/
 fn main() {
-	// the main code goes here
+    // the main code goes here
 }
 
