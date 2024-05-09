@@ -10,6 +10,12 @@ int main(void) {
         return 1;
     }
 
+    Token token = next_token(lexer);
+    while (token.type != TT_EOF) {
+        print_token(token);
+        token = next_token(lexer);
+    }
+
     free_lexer(lexer);
     return 0;
 }
