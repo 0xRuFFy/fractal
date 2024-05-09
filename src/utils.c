@@ -6,9 +6,10 @@
 #include "utils.h"
 
 String* read_file(const char* file_path) {
-    FILE* file = fopen(file_path, "r");
+    FILE* file = fopen(file_path, "rb");
     if (file == NULL) {
-        fprintf(stderr, "Could not open file: %s\n", file_path);
+        fprintf(stderr, "Could not open file: %s | ", file_path);
+        perror("");
         return NULL;
     }
 
