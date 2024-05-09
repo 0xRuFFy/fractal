@@ -14,6 +14,10 @@ typedef struct {
     usize line;
     usize column;
     usize cursor;
+    // TODO: Add a dynamic array of tokens to store token for look ahead.
+    //     Add a function peek_token(Lexer* lexer, usize n) to peek n tokens ahead.
+    //     A call to next_token with a not empty token array will return the first token in the array and shift the array.
+    //     -- For now it may be enough to just have a single token for look ahead --
 } Lexer;
 
 /**
