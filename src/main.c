@@ -4,7 +4,7 @@
 
 int main(void) {
     printf("Hello, World!\n");
-    Lexer* lexer = new_lexer("someFile");
+    Lexer* lexer = new_lexer("data/lexer_tests/test_1.txt");
 
     if (lexer == NULL) {
         return 1;
