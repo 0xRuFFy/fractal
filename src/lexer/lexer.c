@@ -48,9 +48,13 @@ Token next_token(Lexer* lexer) {
         .location = {
             .file_path = lexer->path,
             .line = lexer->line + 1,
-            .column = lexer->column + 1,
+            .column = lexer->column,
         },
     };
+
+    if (token.location.line == 1 && token.location.column == 0) {
+        token.location.column = 1;
+    }
 
     if (!__cursor_in_bounds(lexer)) {
         return token;
