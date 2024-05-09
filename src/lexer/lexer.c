@@ -38,22 +38,19 @@ void free_lexer(Lexer* lexer) {
     free(lexer);
 }
 
-Token next_token(Lexer* lexer) {
+Token* next_token(Lexer* lexer) {
     __trim_whitespace(lexer);
 
-    Token token = {
-        .type = TT_EOF,
-        .value = lexer->source + lexer->cursor,
-        .value_len = 0,
-        .location = {
-            .file_path = lexer->path,
-            .line = lexer->line + 1,
-            .column = lexer->column,
-        },
-    };
+    Token* token = malloc(sizeof(Token));
+    token->type = TT_EOF;
+    token->value = lexer->source + lexer->cursor;
+    token->value_len = 0;
+    token->location.file_path = lexer->path;
+    token->location.line = lexer->line + 1;
+    token->location.column = lexer->column;
 
-    if (token.location.line == 1 && token.location.column == 0) {
-        token.location.column = 1;
+    if (token->location.line == 1 && token->location.column == 0) {
+        token->location.column = 1;
     }
 
     if (!__cursor_in_bounds(lexer)) {
@@ -63,22 +60,22 @@ Token next_token(Lexer* lexer) {
     // Handle Comments
     if (__current_char_is(lexer, '/')) {
         __consume_char(lexer);
-        token.value_len++;
+        token->value_len++;
         if (__cursor_in_bounds(lexer) && __current_char_is(lexer, '/')) {
-            token.type = TT_SL_COMMENT;
+            token->type = TT_SL_COMMENT;
             while (__cursor_in_bounds(lexer) && !__consume_char(lexer)) {
-                token.value_len++;
+                token->value_len++;
             }
 
             return token;
         }
         if (__cursor_in_bounds(lexer) && __current_char_is(lexer, '*')) {
-            token.type = TT_ML_COMMENT;
+            token->type = TT_ML_COMMENT;
             bool found_asterisk = false;
             while (__cursor_in_bounds(lexer)) {
                 if (found_asterisk && __current_char_is(lexer, '/')) {
                     __consume_char(lexer);
-                    token.value_len++;
+                    token->value_len++;
                     break;
                 }
                 if (__current_char_is(lexer, '*')) {
@@ -87,26 +84,26 @@ Token next_token(Lexer* lexer) {
                     found_asterisk = false;
                 }
                 __consume_char(lexer);
-                token.value_len++;
+                token->value_len++;
             }
 
             return token;
         }
 
         __unconsume_char(lexer);
-        token.value_len--;
+        token->value_len--;
     }
 
     // Handle Identifiers
     if (__current_char_is_iden(lexer, true)) {
-        token.type = TT_IDEN;
+        token->type = TT_IDEN;
         while (__cursor_in_bounds(lexer) && __current_char_is_iden(lexer, false)) {
             __consume_char(lexer);
-            token.value_len++;
+            token->value_len++;
         }
 
         // Handle Keywords
-        __handle_keyword_token(&token);
+        __handle_keyword_token(token);
 
         return token;
     }
@@ -116,24 +113,24 @@ Token next_token(Lexer* lexer) {
     if (__current_char_is_num(lexer, &is_float)) {
         while (__cursor_in_bounds(lexer) && __current_char_is_num(lexer, &is_float)) {
             __consume_char(lexer);
-            token.value_len++;
+            token->value_len++;
         }
 
-        token.type = is_float ? TT_FLOAT : TT_INT;
+        token->type = is_float ? TT_FLOAT : TT_INT;
         return token;
     }
 
     // Handle Multi-character tokens
     
     // Handle Single-character tokens
-    if (__handle_single_char_token(lexer, &token)) {
+    if (__handle_single_char_token(lexer, token)) {
         return token;
     }
 
 
-    token.type = TT_INVALID;
+    token->type = TT_INVALID;
     __consume_char(lexer);
-    token.value_len++;
+    token->value_len++;
 
     return token;
 }

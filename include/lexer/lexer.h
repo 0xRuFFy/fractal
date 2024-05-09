@@ -42,6 +42,6 @@ void free_lexer(Lexer* lexer);
  * 
  * @return The next token in the source code.
  */
-Token next_token(Lexer* lexer);
+Token* next_token(Lexer* lexer);
 
 #endif // LEXER_H_
