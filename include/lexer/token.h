@@ -91,7 +91,7 @@ typedef struct {
  * 
  * @param token The token to print.
  */
-void print_token(Token* token);
+void print_token(const Token* token);
 
 /**
  * @brief Frees the memory used by a token.
