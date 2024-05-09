@@ -8,4 +8,3 @@ multi-line comment */
     (7 - 3) / 2;
 }
 
-
