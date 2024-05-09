@@ -27,6 +27,7 @@ typedef enum {
     TT_MINUS,
     TT_ASTERISK,
     TT_SLASH,
+    TT_SEMICOLON,
 
     // Identifiers
     TT_IDEN,
@@ -34,7 +35,7 @@ typedef enum {
     // Keywords
     TT_KW_FN,
 
-    // Types
+    // Types (type of keyword)
     TT_TYPE_INT,
     TT_TYPE_FLOAT,
     // TODO: Add i8, i16 etc.
@@ -46,9 +47,6 @@ typedef enum {
     // FOR ENUM ASSERTION
     TT_MAX,
 } TokenType;
-
-
-#define ASSERT_ENUM_ELEMENT_COUNT(sarray, max) typedef char assert_sizeof_##max[(sizeof(sarray)/sizeof((sarray)[0]) == (max)) ? 1 : -1]
 
 /**
  * @brief Converts a token type to a string.

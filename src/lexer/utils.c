@@ -1,5 +1,4 @@
 #include <ctype.h>
-#include <stdio.h>
 #include <string.h>
 
 #include "lexer/utils.h"
@@ -16,10 +15,13 @@ SingleCharToken single_char_tokens[] = {
     { TT_MINUS, '-' },
     { TT_ASTERISK, '*' },
     { TT_SLASH, '/' },
+    { TT_SEMICOLON, ';' },
 };
 
 KeywordToken const keyword_tokens[] = {
     { TT_KW_FN, "fn", 2 },
+    { TT_TYPE_INT, "int", 3 },
+    { TT_TYPE_FLOAT, "float", 5 },
 };
 
 #ifndef SC_TOKEN_COUNT
@@ -63,7 +65,7 @@ bool __current_char_is_iden(const Lexer *lexer, const bool is_first_char) {
 }
 
 bool __current_char_is_num(const Lexer *lexer, bool* is_float) {
-    char c = lexer->source[lexer->cursor];
+    const char c = lexer->source[lexer->cursor];
     if (isdigit(c)) {
         return true;
     }
@@ -82,9 +84,8 @@ void __trim_whitespace(Lexer* lexer) {
 }
 
 bool __handle_single_char_token(Lexer *lexer, Token *token) {
-    SingleCharToken sct;
     for (usize i = 0; i < SC_TOKEN_COUNT; i++) {
-        sct = single_char_tokens[i];
+        SingleCharToken const sct = single_char_tokens[i];
         if (__current_char_is(lexer, sct.value)) {
             token->type = sct.type;
             token->value_len = 1;
@@ -96,9 +97,8 @@ bool __handle_single_char_token(Lexer *lexer, Token *token) {
 }
 
 bool __handle_keyword_token(Token *token) {
-    KeywordToken kt;
     for (usize i = 0; i < KW_TOKEN_COUNT; i++) {
-        kt = keyword_tokens[i];
+        const KeywordToken kt = keyword_tokens[i];
         if (strncmp(token->value, kt.value, kt.value_len) == 0) {
             token->type = kt.type;
             token->value_len = kt.value_len;

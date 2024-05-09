@@ -19,6 +19,7 @@ char* const TOKEN_TYPE_STRINGS[] = {
     "MINUS",
     "ASTERISK",
     "SLASH",
+    "SEMICOLON",
 
     "IDEN",
 
@@ -31,7 +32,7 @@ char* const TOKEN_TYPE_STRINGS[] = {
     "FLOAT",
 };
 
-ASSERT_ENUM_TO_STR(TOKEN_TYPE_STRINGS, TT_MAX);
+ASSERT_ENUM_ELEMENT_COUNT(TOKEN_TYPE_STRINGS, TT_MAX);
 
 char* token_type_to_string(TokenType token) {
     return TOKEN_TYPE_STRINGS[token];
