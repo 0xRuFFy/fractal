@@ -1,5 +1,5 @@
-#ifndef UTIL_H_
-#define UTIL_H_
+#ifndef UTILS_H_
+#define UTILS_H_
 
 #include "defines.h"
 
@@ -16,4 +16,4 @@
  */
 String *read_file(const char *file_path);
 
-#endif  // UTIL_H_
+#endif  // UTILS_H_
