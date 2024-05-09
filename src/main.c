@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "lexer/lexer.h"
+#include "parser/parser.h"
 
 int main(void) {
     printf("Hello, World!\n");
@@ -10,12 +11,16 @@ int main(void) {
         return 1;
     }
 
-    Token* token = next_token(lexer);
-    while (token->type != TT_EOF) {
-        print_token(token);
-        free_token(token);
-        token = next_token(lexer);
-    }
+    // Token* token = next_token(lexer);
+    // while (token->type != TT_EOF) {
+    //     print_token(token);
+    //     free_token(token);
+    //     token = next_token(lexer);
+    // }
+
+    ParseTreeNode* root = parse(lexer);
+
+    print_parse_tree(root);
 
     free_lexer(lexer);
     return 0;
