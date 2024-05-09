@@ -3,6 +3,28 @@
 #include "parser/parser.h"
 #include "parser/utils.h"
 
+char* const node_type_strings[] = {
+    "PROGRAM",
+
+    "FUNC_DECL",
+
+    "PARAM_LIST",
+    "STMT",
+    "EXPR",
+    "TERM",
+    "FACTOR",
+
+    "IDEN",
+    "INT",
+    "FLOAT",
+    "STRING",
+    "TYPE",
+};
+
+char *node_type_to_string(NodeType type) {
+    return node_type_strings[type];
+}
+
 ParseTreeNode *parse(Lexer *lexer) {
     if (lexer == NULL) {
         fprintf(stderr, "Something went wrong with the lexer\n");
@@ -25,7 +47,7 @@ void free_parse_tree(ParseTreeNode *root) {
     free(root);
 }
 
-void print_parse_tree(ParseTreeNode *root, int depth) {
+void __print_parse_tree(ParseTreeNode *root, int depth) {
     if (root == NULL) {
         return;
     }
@@ -37,6 +59,10 @@ void print_parse_tree(ParseTreeNode *root, int depth) {
     printf("[%-15s] ~ %s\n", node_type_to_string(root->type), root->value);
 
     for (int i = 0; i < root->num_children; i++) {
-        print_parse_tree(root->children[i], depth + 1);
+        __print_parse_tree(root->children[i], depth + 1);
     }
+}
+
+void print_parse_tree(ParseTreeNode *root) {
+    __print_parse_tree(root, 0);
 }

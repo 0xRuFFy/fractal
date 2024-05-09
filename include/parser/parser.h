@@ -19,7 +19,18 @@ typedef enum {
     NODE_FLOAT,
     NODE_STRING,
     NODE_TYPE,
+
+    __NODE_MAX,
 } NodeType;
+
+/**
+ * @brief Converts a node type to a string.
+ *
+ * @param type The node type to convert.
+ *
+ * @return The string representation of the node type.
+ */
+char* node_type_to_string(NodeType type);
 
 typedef struct ParseTreeNode ParseTreeNode;
 
@@ -50,8 +61,7 @@ void free_parse_tree(ParseTreeNode *root);
  * @brief Prints a parse tree to the console.
  * 
  * @param root The root of the parse tree to print.
- * @param depth The maximum depth to print the tree to.
  */
-void print_parse_tree(ParseTreeNode *root, int depth);
+void print_parse_tree(ParseTreeNode *root);
 
 #endif // PARSE_H_
