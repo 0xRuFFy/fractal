@@ -1,5 +1,5 @@
-#ifndef UTILS_H_
-#define UTILS_H_
+#ifndef LEXER_UTILS_H_
+#define LEXER_UTILS_H_
 
 #include "lexer/lexer.h"
 
@@ -80,4 +80,4 @@ bool __handle_single_char_token(Lexer* lexer, Token* token);
  */
 bool __handle_keyword_token(Token* token);
 
-#endif //UTILS_H_
+#endif // LEXER_UTILS_H_
