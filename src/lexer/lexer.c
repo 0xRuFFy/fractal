@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "lexer/lexer.h"
+#include "lexer/token.h"
 #include "utils.h"
 #include "lexer/utils.h"
 
@@ -44,11 +45,66 @@ Token next_token(Lexer* lexer) {
         .type = TT_EOF,
         .value = lexer->source + lexer->cursor,
         .value_len = 0,
+        .location = {
+            .file_path = lexer->path,
+            .line = lexer->line,
+            .column = lexer->column,
+        },
     };
 
     if (!__cursor_in_bounds(lexer)) {
         return token;
     }
+
+    // Handle Comments
+    if (__current_char_is(lexer, '/')) {
+        __consume_char(lexer);
+        token.value_len++;
+        if (__cursor_in_bounds(lexer) && __current_char_is(lexer, '/')) {
+            token.type = TT_SL_COMMENT;
+            while (__cursor_in_bounds(lexer) && !__consume_char(lexer)) {
+                token.value_len++;
+            }
+
+            return token;
+        } else if (__cursor_in_bounds(lexer) && __current_char_is(lexer, '*')) {
+            token.type = TT_ML_COMMENT;
+            bool found_asterisk = false;
+            while (__cursor_in_bounds(lexer)) {
+                if (found_asterisk && __current_char_is(lexer, '/')) {
+                    __consume_char(lexer);
+                    token.value_len++;
+                    break;
+                } else if (__current_char_is(lexer, '*')) {
+                    found_asterisk = true;
+                } else {
+                    found_asterisk = false;
+                }
+                __consume_char(lexer);
+                token.value_len++;
+            }
+
+            return token;
+        }
+
+        __unconsume_char(lexer);
+        token.value_len--;
+    }
+
+    // Handle Identifiers
+    
+        // Handle Keywords
+
+    // Handle Literals (Integers, Floats, Strings, ...)
+
+    // Handle Multi-character tokens
+    
+    // Handle Single-character tokens
+
+
+    token.type = TT_INVALID;
+    __consume_char(lexer);
+    token.value_len++;
 
     return token;
 }
