@@ -39,7 +39,7 @@ bool __cursor_in_bounds(const Lexer* lexer) {
 bool __consume_char(Lexer* lexer) {
     lexer->cursor++;
     lexer->column++;
-    if (__cursor_in_bounds(lexer) && lexer->source[lexer->cursor-1] == '\n') {
+    if (__cursor_in_bounds(lexer) && lexer->source[lexer->cursor] == '\n') {
         lexer->line++;
         lexer->column = 0;
         return true;

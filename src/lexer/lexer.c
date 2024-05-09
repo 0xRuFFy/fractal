@@ -19,8 +19,8 @@ Lexer* new_lexer(const char* file_path) {
     lexer->path = file_path;
     lexer->source = source->start;
     lexer->source_length = source->length;
-    lexer->line = 1;
-    lexer->column = 1;
+    lexer->line = 0;
+    lexer->column = 0;
     lexer->cursor = 0;
 
     free(source);
@@ -47,8 +47,8 @@ Token next_token(Lexer* lexer) {
         .value_len = 0,
         .location = {
             .file_path = lexer->path,
-            .line = lexer->line,
-            .column = lexer->column,
+            .line = lexer->line + 1,
+            .column = lexer->column + 1,
         },
     };
 
