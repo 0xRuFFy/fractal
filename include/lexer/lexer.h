@@ -35,7 +35,6 @@ Lexer* new_lexer(const char* file_path);
  */
 void free_lexer(Lexer* lexer);
 
-
 /**
  * @brief Returns the next token in the source code.
  * 
@@ -44,6 +43,5 @@ void free_lexer(Lexer* lexer);
  * @return The next token in the source code.
  */
 Token next_token(Lexer* lexer);
-
 
 #endif // LEXER_H_

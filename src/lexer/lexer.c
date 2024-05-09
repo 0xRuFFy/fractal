@@ -94,14 +94,37 @@ Token next_token(Lexer* lexer) {
     }
 
     // Handle Identifiers
-    
+    if (__current_char_is_iden(lexer, true)) {
+        token.type = TT_IDEN;
+        while (__cursor_in_bounds(lexer) && __current_char_is_iden(lexer, false)) {
+            __consume_char(lexer);
+            token.value_len++;
+        }
+
         // Handle Keywords
+        __handle_keyword_token(&token);
+
+        return token;
+    }
 
     // Handle Literals (Integers, Floats, Strings, ...)
+    bool is_float = false;
+    if (__current_char_is_num(lexer, &is_float)) {
+        while (__cursor_in_bounds(lexer) && __current_char_is_num(lexer, &is_float)) {
+            __consume_char(lexer);
+            token.value_len++;
+        }
+
+        token.type = is_float ? TT_FLOAT : TT_INT;
+        return token;
+    }
 
     // Handle Multi-character tokens
     
     // Handle Single-character tokens
+    if (__handle_single_char_token(lexer, &token)) {
+        return token;
+    }
 
 
     token.type = TT_INVALID;

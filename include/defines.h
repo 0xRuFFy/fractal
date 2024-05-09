@@ -31,7 +31,10 @@ typedef struct {
 
 // ------ Macros ------
 // Array length
-#define ARRAY_LENGTH(array) (sizeof(array) / sizeof(array[0]))
+#define ARRAY_LENGTH(array) (sizeof(array) / sizeof((array)[0]))
+
+// Assert for enums (checks if a array has the same amount of elements as the enum)
+#define ASSERT_ENUM_ELEMENT_COUNT(sarray, max) typedef char assert_sizeof_##max[(sizeof(sarray)/sizeof((sarray)[0]) == (max)) ? 1 : -1]
 
 // Swap
 #define swap(a, b)          \

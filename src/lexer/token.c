@@ -5,8 +5,30 @@
 char* const TOKEN_TYPE_STRINGS[] = {
     "EOF",
     "INVALID",
+
     "SL_COMMENT",
     "ML_COMMENT",
+
+    "LPAREN",
+    "RPAREN",
+    "LBRACE",
+    "RBRACE",
+    "LBRACKET",
+    "RBRACKET",
+    "PLUS",
+    "MINUS",
+    "ASTERISK",
+    "SLASH",
+
+    "IDEN",
+
+    "KW_FN",
+
+    "TYPE_INT",
+    "TYPE_FLOAT",
+
+    "INT",
+    "FLOAT",
 };
 
 ASSERT_ENUM_TO_STR(TOKEN_TYPE_STRINGS, TT_MAX);
