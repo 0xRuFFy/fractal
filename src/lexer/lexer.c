@@ -67,7 +67,8 @@ Token next_token(Lexer* lexer) {
             }
 
             return token;
-        } else if (__cursor_in_bounds(lexer) && __current_char_is(lexer, '*')) {
+        }
+        if (__cursor_in_bounds(lexer) && __current_char_is(lexer, '*')) {
             token.type = TT_ML_COMMENT;
             bool found_asterisk = false;
             while (__cursor_in_bounds(lexer)) {
@@ -75,7 +76,8 @@ Token next_token(Lexer* lexer) {
                     __consume_char(lexer);
                     token.value_len++;
                     break;
-                } else if (__current_char_is(lexer, '*')) {
+                }
+                if (__current_char_is(lexer, '*')) {
                     found_asterisk = true;
                 } else {
                     found_asterisk = false;

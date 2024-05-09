@@ -26,7 +26,7 @@ void __unconsume_char(Lexer* lexer) {
     }
 }
 
-bool __current_char_is(const Lexer *lexer, char c) {
+bool __current_char_is(const Lexer *lexer, const char c) {
     return lexer->source[lexer->cursor] == c;
 }
 
