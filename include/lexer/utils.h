@@ -20,6 +20,22 @@ bool __cursor_in_bounds(const Lexer *lexer);
 bool __consume_char(Lexer *lexer);
 
 /**
+ * @brief Unconsume a character from the input string.
+ *
+ * @param lexer The lexer object.
+ */
+void __unconsume_char(Lexer* lexer);
+
+/**
+ * @brief Check if the current character is equal to the input character.
+ *
+ * @param lexer The lexer object.
+ * @param c The character to compare.
+ * @return true If the current character is equal to the input character else false.
+ */
+bool __current_char_is(const Lexer *lexer, char c);
+
+/**
  * @brief Trim whitespace from the input string.
  *
  * Whitespace is determined by the isspace() function from the C standard library.
