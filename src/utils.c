@@ -14,12 +14,20 @@ String* read_file(const char* file_path) {
     }
 
     String* string = malloc(sizeof(String));
+	if (string == NULL) {
+		fprintf(stderr, "Failed to allocate memory for string\n");
+		return NULL;
+	}
 
     fseek(file, 0, SEEK_END);
     const usize file_size = ftell(file);
     rewind(file);
 
     char* buffer = malloc((file_size + 1) * sizeof(char));
+	if (buffer == NULL) {
+		fprintf(stderr, "Failed to allocate memory for file contents\n");
+		return NULL;
+	}
     const usize read = fread(buffer, sizeof(char), file_size, file);
     if (read != file_size) {
         fprintf(stderr, "Could not read file: %s\n", file_path);

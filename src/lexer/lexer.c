@@ -8,6 +8,10 @@
 
 Lexer* new_lexer(const char* file_path) {
     Lexer* lexer = malloc(sizeof(Lexer));
+    if (lexer == NULL) {
+        fprintf(stderr, "Failed to allocate memory for lexer");
+        return NULL;
+    }
 
     String* source = read_file(file_path);
 
@@ -49,6 +53,11 @@ Token* next_token(Lexer* lexer) {
     __trim_whitespace(lexer);
 
     Token* token = malloc(sizeof(Token));
+	if (token == NULL) {
+		fprintf(stderr, "Failed to allocate memory for token");
+		return NULL;
+	}
+
     token->type = TT_EOF;
     token->value = lexer->source + lexer->cursor;
     token->value_len = 0;
