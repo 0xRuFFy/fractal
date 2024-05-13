@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+
 #include "lexer/lexer.h"
 #include <stdio.h>
 #include <string.h>
@@ -76,8 +77,7 @@ ParseTreeNode *__parse_func_decl(Lexer* lexer) {
         exit(1);
     }
 
-    // TODO: Parse parameters
-    
+    __add_child(node, __parse_param_list(lexer));
     token = next_token(lexer);
 
     if (!token_is(token, TT_RPAREN)) {
@@ -94,8 +94,7 @@ ParseTreeNode *__parse_func_decl(Lexer* lexer) {
         exit(1);
     }
 
-    // TODO: Parse statements
-
+    __add_child(node, __parse_stmt_list(lexer));
     token = next_token(lexer);
     
     if (!token_is(token, TT_RBRACE)) {
@@ -104,5 +103,29 @@ ParseTreeNode *__parse_func_decl(Lexer* lexer) {
         exit(1);
     }
 
+    return node;
+}
+
+ParseTreeNode *__parse_param_list(Lexer* lexer) {
+    ParseTreeNode* node = malloc(sizeof(ParseTreeNode));
+    node->type = NODE_PARAM_LIST;
+    node->value = NULL;
+    node->num_children = 0;
+    node->children = NULL;
+
+    // TODO: Implement parsing logic here
+
+    return node;
+}
+
+ParseTreeNode *__parse_stmt_list(Lexer* lexer) {
+    ParseTreeNode* node = malloc(sizeof(ParseTreeNode));
+    node->type = NODE_STMT_LIST;
+    node->value = NULL;
+    node->num_children = 0;
+    node->children = NULL;
+
+    // TODO: Implement parsing logic here
+    
     return node;
 }
