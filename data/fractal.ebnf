@@ -5,14 +5,19 @@ program
     ;
 
 funcDef
-    : 'fn' iden '(' params ')' [':' type] '{' statement* '}'
+    : 'fn' iden '(' params ')' [':' type] '{' statement_list '}'
     ;
 
 params
     : (iden ':' type (',' iden ':' type)*)?
     ;
 
+statement_list
+    : statement*
+    ;
+
 statement
+    : expr ';'
     : 'return' expr ';'
     ;
 
