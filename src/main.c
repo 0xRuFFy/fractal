@@ -4,8 +4,9 @@
 #include "parser/parser.h"
 
 int main(void) {
-    printf("Hello, World!\n");
-    Lexer* lexer = new_lexer("data/lexer_tests/test_1.txt");
+    printf("Hello, World!\n"); 
+    Lexer* lexer = new_lexer("data/fractal_snippets/s1.fract");
+    /* Lexer* lexer = new_lexer("data/lexer_tests/test_1.txt"); */
 
     if (lexer == NULL) {
         return 1;
@@ -18,7 +19,7 @@ int main(void) {
     //     token = next_token(lexer);
     // }
 
-    ParseTreeNode* root = parse(lexer);
+    const ParseTreeNode* root = parse(lexer);
 
     print_parse_tree(root);
 

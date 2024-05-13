@@ -1,6 +1,7 @@
 #ifndef TOKEN_H_
 #define TOKEN_H_
 
+#include <stdio.h>
 #include "defines.h"
 #include "lexer/location.h"
 
@@ -91,7 +92,7 @@ typedef struct {
  * 
  * @param token The token to print.
  */
-void print_token(const Token* token);
+void print_token(FILE* Stream, const Token* token);
 
 /**
  * @brief Frees the memory used by a token.
@@ -99,5 +100,15 @@ void print_token(const Token* token);
  * @param token The token to free.
  */
 void free_token(Token* token);
+
+/**
+ * @brief Check if a token is of a certain type.
+ * 
+ * @param token The token to check.
+ * @param type The type to check against.
+ * 
+ * @return True if the token is of the given type, false otherwise.
+ */
+bool token_is(const Token* token, TokenType type);
 
 #endif // TOKEN_H_

@@ -4,6 +4,10 @@
 #include "lexer/lexer.h"
 #include "parser/parser.h"
 
+ParseTreeNode* __iden_to_node(const Token *token);
+
 ParseTreeNode* __parse_program(Lexer *lexer);
+
+ParseTreeNode* __parse_func_decl(Lexer *lexer);
 
 #endif  // PARSER_UTILS_H_

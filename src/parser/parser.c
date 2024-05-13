@@ -9,6 +9,7 @@ char* const node_type_strings[] = {
     "FUNC_DECL",
 
     "PARAM_LIST",
+    "STMT_LIST",
     "STMT",
     "EXPR",
     "TERM",
@@ -21,7 +22,7 @@ char* const node_type_strings[] = {
     "TYPE",
 };
 
-char *node_type_to_string(NodeType type) {
+char *node_type_to_string(const NodeType type) {
     return node_type_strings[type];
 }
 
@@ -47,7 +48,7 @@ void free_parse_tree(ParseTreeNode *root) {
     free(root);
 }
 
-void __print_parse_tree(ParseTreeNode *root, int depth) {
+void __print_parse_tree(const ParseTreeNode *root, const int depth) {
     if (root == NULL) {
         return;
     }
@@ -63,6 +64,6 @@ void __print_parse_tree(ParseTreeNode *root, int depth) {
     }
 }
 
-void print_parse_tree(ParseTreeNode *root) {
+void print_parse_tree(const ParseTreeNode *root) {
     __print_parse_tree(root, 0);
 }

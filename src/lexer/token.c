@@ -38,11 +38,15 @@ char* token_type_to_string(const TokenType token) {
     return token_type_strings[token];
 }
 
-void print_token(const Token* token) {
-    printf("[%-15s] ~ %-60.*s ", token_type_to_string(token->type), (int)token->value_len, token->value);
+void print_token(FILE* Stream, const Token* token) {
+    fprintf(Stream, "[%-15s] ~ %-60.*s ", token_type_to_string(token->type), (int)token->value_len, token->value);
     print_location(token->location);
 }
 
 void free_token(Token* token) {
     free(token);
+}
+
+bool token_is(const Token* token, const TokenType type) {
+    return token->type == type;
 }

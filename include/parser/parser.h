@@ -9,6 +9,7 @@ typedef enum {
     NODE_FUNC_DECL,
 
     NODE_PARAM_LIST,
+    NODE_STMT_LIST,
     NODE_STMT,
     NODE_EXPR,
     NODE_TERM,
@@ -62,6 +63,6 @@ void free_parse_tree(ParseTreeNode *root);
  * 
  * @param root The root of the parse tree to print.
  */
-void print_parse_tree(ParseTreeNode *root);
+void print_parse_tree(const ParseTreeNode *root);
 
 #endif // PARSE_H_

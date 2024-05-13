@@ -22,6 +22,7 @@ Lexer* new_lexer(const char* file_path) {
     lexer->line = 0;
     lexer->column = 0;
     lexer->cursor = 0;
+    lexer->peeked_token = NULL;
 
     free(source);
 
@@ -39,6 +40,12 @@ void free_lexer(Lexer* lexer) {
 }
 
 Token* next_token(Lexer* lexer) {
+    if (lexer->peeked_token != NULL) {
+        Token* token = lexer->peeked_token;
+        lexer->peeked_token = NULL;
+        return token;
+    }
+
     __trim_whitespace(lexer);
 
     Token* token = malloc(sizeof(Token));
@@ -57,7 +64,7 @@ Token* next_token(Lexer* lexer) {
         return token;
     }
 
-    // Handle Comments
+    // Handle Comments (Skip them)
     if (__current_char_is(lexer, '/')) {
         __consume_char(lexer);
         token->value_len++;
@@ -67,7 +74,7 @@ Token* next_token(Lexer* lexer) {
                 token->value_len++;
             }
 
-            return token;
+            return next_token(lexer);
         }
         if (__cursor_in_bounds(lexer) && __current_char_is(lexer, '*')) {
             token->type = TT_ML_COMMENT;
@@ -87,7 +94,7 @@ Token* next_token(Lexer* lexer) {
                 token->value_len++;
             }
 
-            return token;
+            return next_token(lexer);
         }
 
         __unconsume_char(lexer);
@@ -134,3 +141,12 @@ Token* next_token(Lexer* lexer) {
 
     return token;
 }
+
+Token* peek_token(Lexer* lexer) {
+    if (lexer->peeked_token == NULL) {
+        lexer->peeked_token = next_token(lexer);
+    }
+
+    return lexer->peeked_token;
+}
+
