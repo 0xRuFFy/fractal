@@ -19,10 +19,11 @@ int main(void) {
     //     token = next_token(lexer);
     // }
 
-    const ParseTreeNode* root = parse(lexer);
+    ParseTreeNode* root = parse(lexer);
 
     print_parse_tree(root);
 
+    free_parse_tree(root);
     free_lexer(lexer);
     return 0;
 }
