@@ -7,6 +7,7 @@ typedef enum {
     NODE_PROGRAM,
 
     NODE_FUNC_DECL,
+    NODE_FUNC_INFO,
 
     NODE_PARAM_LIST,
     NODE_STMT_LIST,
@@ -40,6 +41,7 @@ struct ParseTreeNode {
     char *value;
     ParseTreeNode **children;
     int num_children;
+    void* data;
 };
 
 /**

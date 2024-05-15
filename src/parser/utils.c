@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include "parser/func_info.h"
 
 #include "lexer/lexer.h"
 #include <stdio.h>
@@ -35,6 +36,8 @@ ParseTreeNode* __iden_to_node(const Token* token) {
     node->value[token->value_len] = '\0';
     node->num_children = 0;
     node->children = NULL;
+    node->data = NULL;
+
     return node;
 }
 
@@ -48,6 +51,7 @@ ParseTreeNode *__parse_program(Lexer* lexer) {
     root->value = NULL;
     root->num_children = 0;
     root->children = NULL;
+    root->data = NULL;
 
     // TODO: Implement parsing logic here
 
@@ -79,6 +83,7 @@ ParseTreeNode *__parse_func_decl(Lexer* lexer) {
     node->value = NULL;
     node->num_children = 0;
     node->children = NULL;
+    node->data = __create_func_info();
 
     // TODO: Implement parsing logic here
     const Token* token = next_token(lexer);
@@ -137,6 +142,7 @@ ParseTreeNode *__parse_param_list(Lexer* lexer) {
     node->value = NULL;
     node->num_children = 0;
     node->children = NULL;
+    node->data = NULL;
 
     // TODO: Implement parsing logic here
 
@@ -153,6 +159,7 @@ ParseTreeNode *__parse_stmt_list(Lexer* lexer) {
     node->value = NULL;
     node->num_children = 0;
     node->children = NULL;
+    node->data = NULL;
 
     // TODO: Implement parsing logic here
     
