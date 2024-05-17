@@ -34,6 +34,7 @@ impl TokenType {
     }
 }
 
+#[derive(Debug)]
 pub struct Token {
     tt: TokenType,
     lexeme: String,
