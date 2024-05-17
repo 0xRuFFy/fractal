@@ -8,10 +8,15 @@ pub enum TokenType {
     Invalid,
 
     // Single-character tokens
+    LParen, // (
+    RParen, // )
+    LBrace, // {
+    RBrace, // }
 
     // Multi-character tokens
 
     // Keywords
+    Fn_,
 
     // Types
 
@@ -25,7 +30,7 @@ pub enum TokenType {
 
 impl TokenType {
     fn to_string(&self) -> String {
-        format!("{:?}", self).to_uppercase()
+        format!("{:?}", self).to_uppercase().replace("_", "")
     }
 }
 
@@ -54,5 +59,27 @@ impl Display for Token {
             self.lexeme,
             self.location
         )
+    }
+}
+
+pub struct SingleCharToken {
+    tt: TokenType,
+    c: char,
+}
+
+impl SingleCharToken {
+    pub fn new(tt: TokenType, c: char) -> Self {
+        Self {
+            tt,
+            c,
+        }
+    }
+
+    pub fn get_tt(&self) -> TokenType {
+        self.tt
+    }
+
+    pub fn get_c(&self) -> char {
+        self.c
     }
 }

@@ -1,11 +1,12 @@
-mod location;
-mod token;
+pub mod location;
+pub mod token;
 
 use self::location::Location;
 use self::token::{Token, TokenType};
 use std::iter::Peekable;
 use std::str::Chars;
 
+#[derive(Clone)]
 pub struct Lexer<'a> {
     source: Peekable<Chars<'a>>,
     cursor: usize,
@@ -104,7 +105,15 @@ impl<'a> Iterator for Lexer<'a> {
                         lexeme,
                     )
                 }
-                _ => (TokenType::Invalid, c.to_string()),
+                _ => {
+                    // TODO: handle multi-char tokens before single-char tokens
+
+                    if let Some(tt) = handle_single_char_token(c) {
+                        (tt, c.to_string())
+                    } else {
+                        (TokenType::Invalid, c.to_string())
+                    }
+                }
             },
             None => {
                 self.reached_eof = true;
@@ -159,6 +168,7 @@ fn is_identifier(c: char, is_first_char: bool) -> bool {
 
 fn is_keyword(lexeme: &str) -> Option<TokenType> {
     match lexeme {
+        "fn" => Some(TokenType::Fn_),
         _ => None,
     }
 }
@@ -173,4 +183,14 @@ fn is_number(c: char, is_float: &mut bool) -> bool {
     }
 
     c.is_digit(10)
+}
+
+fn handle_single_char_token(c: char) -> Option<TokenType> {
+    match c {
+        '(' => Some(TokenType::LParen),
+        ')' => Some(TokenType::RParen),
+        '{' => Some(TokenType::LBrace),
+        '}' => Some(TokenType::RBrace),
+        _ => None,
+    }
 }
